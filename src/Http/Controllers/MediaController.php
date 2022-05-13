@@ -3,6 +3,7 @@
 namespace Ebess\AdvancedNovaMediaLibrary\Http\Controllers;
 
 use Ebess\AdvancedNovaMediaLibrary\Http\Requests\MediaRequest;
+use Illuminate\Support\Facades\Auth;
 use Ebess\AdvancedNovaMediaLibrary\Http\Resources\MediaResource;
 use Exception;
 
@@ -10,6 +11,10 @@ class MediaController extends Controller
 {
     public function index(MediaRequest $request)
     {
+
+        $mediaPolicy = config('nova-media-library.media-policy', \App\Policies\MediaPolicy::class);
+        if (!(new $mediaPolicy)->viewAny(Auth::user())) return response('Non autorizzato', 401);
+
         if (!config('nova-media-library.enable-existing-media')) {
             throw new Exception('You need to enable the `existing media` feature via config.');
         }
@@ -37,12 +42,12 @@ class MediaController extends Controller
 
             $query->latest();
         }
-        
+
         if (!empty($hideCollections)) {
             if (!is_array($hideCollections)) {
-                $hideCollections = [ $hideCollections ];
+                $hideCollections = [$hideCollections];
             }
-            
+
             $query->whereNotIn('collection_name', $hideCollections);
         }
 
