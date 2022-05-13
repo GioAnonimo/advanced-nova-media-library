@@ -24,7 +24,7 @@ class MediaController extends Controller
         $mediaClassIsSearchable = method_exists($mediaClass, 'search');
 
         $searchText = $request->input('search_text') ?: null;
-        $perPage = $request->input('per_page') ?: 18;
+        $perPage = $request->input('per_page') ?: 15;
 
         $query = null;
 
