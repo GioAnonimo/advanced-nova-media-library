@@ -31,11 +31,11 @@ trait HandlesConversionsTrait
     {
         return [
             // original needed several purposes like cropping
-            '__original__' => $media->getUrl(),
-            'indexView' => $media->getUrl($this->meta['conversionOnIndexView'] ?? ''),
-            'detailView' => $media->getUrl($this->meta['conversionOnDetailView'] ?? ''),
-            'form' => $media->getUrl($this->meta['conversionOnForm'] ?? ''),
-            'preview' => $media->getUrl($this->meta['conversionOnPreview'] ?? ''),
+            '__original__' => '/nova-vendor/ebess/advanced-nova-media-library/download/' . $media->id,
+            'indexView' => '/nova-vendor/ebess/advanced-nova-media-library/download/' . $media->id,
+            'detailView' => '/nova-vendor/ebess/advanced-nova-media-library/download/' . $media->id,
+            'form' => '/nova-vendor/ebess/advanced-nova-media-library/download/' . $media->id,
+            'preview' => '/nova-vendor/ebess/advanced-nova-media-library/download/' . $media->id,
         ];
     }
 
