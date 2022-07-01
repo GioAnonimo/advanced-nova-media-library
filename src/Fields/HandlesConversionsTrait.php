@@ -29,7 +29,7 @@ trait HandlesConversionsTrait
 
     public function getConversionUrls(\Spatie\MediaLibrary\MediaCollections\Models\Media $media): array
     {
-        $preview_collection = config('nova-media-library.preview-collection-name');
+        $preview_collection = config('nova-media-library.preview-collection-name') ?? "thumb";
         $preview_url = '//' . ($media->hasGeneratedConversion($preview_collection) ? $media->getUrl($preview_collection) : $media->getUrl());
         $original_url = '//' . $media->getUrl();
 
