@@ -29,13 +29,17 @@ trait HandlesConversionsTrait
 
     public function getConversionUrls(\Spatie\MediaLibrary\MediaCollections\Models\Media $media): array
     {
+        $preview_collection = config('nova-media-library.preview-collection-name');
+        $preview_url = '//' . ($media->hasGeneratedConversion($preview_collection) ? $media->getUrl($preview_collection) : $media->getUrl());
+        $original_url = '//' . $media->getUrl();
+
         return [
             // original needed several purposes like cropping
-            '__original__' => '/nova-vendor/ebess/advanced-nova-media-library/download/' . $media->id,
-            'indexView' => '/nova-vendor/ebess/advanced-nova-media-library/download/' . $media->id,
-            'detailView' => '/nova-vendor/ebess/advanced-nova-media-library/download/' . $media->id,
-            'form' => '/nova-vendor/ebess/advanced-nova-media-library/download/' . $media->id,
-            'preview' => '/nova-vendor/ebess/advanced-nova-media-library/download/' . $media->id,
+            '__original__' => $original_url,
+            'indexView' => $preview_url,
+            'detailView' => $original_url,
+            'form' => $original_url,
+            'preview' => $preview_url,
         ];
     }
 

@@ -11,7 +11,6 @@ class MediaController extends Controller
 {
     public function index(MediaRequest $request)
     {
-
         $mediaPolicy = config('nova-media-library.media-policy', \App\Policies\MediaPolicy::class);
         if (!(new $mediaPolicy)->viewAny(Auth::user())) return response('Non autorizzato', 401);
 
